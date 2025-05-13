@@ -107,7 +107,6 @@ public:
         swap(*this, other);
     }
 
-    // TODO: refactor
     friend void swap(list& lhs, list& rhs) {
         if (lhs.empty()) {
             lhs.fakeNode.next = rhs.fakeNode.next;
