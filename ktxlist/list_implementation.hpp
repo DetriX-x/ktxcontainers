@@ -299,6 +299,7 @@ private:
         using pointer = std::conditional_t<isConst, const T*, T*>;
         using reference = std::conditional_t<isConst, const T&, T&>;
 
+        base_iterator(): ptr_{} {}
         base_iterator(const base_iterator&) = default;
         base_iterator& operator=(const base_iterator&) = default;
         base_iterator(base_iterator&&) = default;
@@ -306,7 +307,7 @@ private:
         ~base_iterator() = default;
 
         base_iterator& operator++() {
-            ptr = static_cast<Node*>(ptr->next);
+            ptr_ = static_cast<Node*>(ptr_->next);
             return *this;
         }
 
@@ -317,7 +318,7 @@ private:
         }
 
         base_iterator& operator--() {
-            ptr = static_cast<Node*>(ptr->prev);
+            ptr_ = static_cast<Node*>(ptr_->prev);
             return *this;
         }
 
@@ -328,26 +329,26 @@ private:
         }
 
         reference operator*() const {
-            return static_cast<Node*>(ptr)->value;
+            return static_cast<Node*>(ptr_)->value;
         }
 
         pointer operator->() const {
-            return static_cast<Node*>(ptr);
+            return static_cast<Node*>(ptr_);
         }
 
         bool operator==(base_iterator other) const {
-            return ptr == other.ptr;
+            return ptr_ == other.ptr_;
         }
 
         bool operator!=(base_iterator other) const {
-            return ptr != other.ptr;
+            return ptr_ != other.ptr_;
         }
 
         operator base_iterator<true>() const {
-            return {ptr};
+            return {ptr_};
         }
 
-        BaseNode* ptr;
-        base_iterator(BaseNode* ptr) : ptr(ptr) {}
+        BaseNode* ptr_;
+        base_iterator(BaseNode* ptr_) : ptr_(ptr_) {}
     };
 };
