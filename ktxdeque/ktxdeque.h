@@ -251,6 +251,7 @@ private:
         using pointer_to_pointer = std::conditional_t<isConst, const T* const*, T**>;
         using reference = std::conditional_t<isConst, const T&, T&>;
 
+        base_iterator(): ptr_{}, ai_{0}{}
         base_iterator(const base_iterator&) = default;
         base_iterator& operator=(const base_iterator&) = default;
         base_iterator(base_iterator&&) = default;
@@ -284,6 +285,12 @@ private:
                                                base_iterator it) {
            it.ai_ -= index;
            return {it};
+        }
+
+        reference operator[](size_t i) {
+            auto bi = (ai_ + i) / BlockSize;
+            auto ri = (ai_ + i) % BlockSize;
+            return ptr_[bi][ri];
         }
 
         iterator& operator+=(difference_type index) {

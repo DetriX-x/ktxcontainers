@@ -281,6 +281,10 @@ private:
             return it;
         }
 
+        reference operator[](size_t i) {
+            return ptr_[i];
+        }
+
         reference operator*() const {
             return *ptr_;
         }
