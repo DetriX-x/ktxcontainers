@@ -215,6 +215,7 @@ private:
         using pointer = std::conditional_t<isConst, const T*, T*>;
         using reference = std::conditional_t<isConst, const T&, T&>;
 
+        base_iterator(): ptr_{} {}
         base_iterator(const base_iterator&) = default;
         base_iterator& operator=(const base_iterator&) = default;
         base_iterator(base_iterator&&) = default;
