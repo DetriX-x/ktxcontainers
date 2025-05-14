@@ -304,7 +304,13 @@ private:
         base_iterator(T* ptr) noexcept
             : ptr_{ptr} {}
     };
+
 };
+
+template <typename InputIt, typename Alloc = std::allocator<typename std::iterator_traits<InputIt>::value_type>>
+vector(InputIt, InputIt, Alloc = Alloc()) ->
+    vector<typename std::iterator_traits<InputIt>::value_type, Alloc>;
+
 
 template<typename T, typename Allocator>
 std::ostream& operator<<(std::ostream& os, const vector<T, Allocator>& vec);
